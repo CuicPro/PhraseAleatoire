@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Phrases</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <p id="PhraseGenere">Place à la magie de la génération aléatoire !</p>
+    <button id="BoutonGeneration" onclick="generePhrase()">Générer une nouvelle phrase</button>
+
+    <script>
+        var pronomsSujets = ["je", "tu", "il", "elle", "on", "nous", "vous", "ils", "elles"];
+        var determinants = ["le", "la", "les", "un", "une", "des", "du", "l'"];
+        var sujets = ["chat", "chien", "oiseau", "lapin", "poisson", "serpent", "cheval", "éléphant", "souris", "tigre", "loup", "papillon", "abeille", "grenouille", "koala", "pingouin", "panda", "écureuil", "girafe", "tortue", "hérisson", "poulet", "hibou", "caméléon", "guépard", "hippopotame", "koala", "panda", "panthère", "crocodile", "autruche", "léopard", "rhinocéros", "perroquet", "dauphin", "écureuil", "flamant rose", "poule", "chimpanzé", "paresseux", "lézard", "chèvre", "chevreuil", "castor", "mouton", "porc", "éléphant de mer", "morse", "raton laveur", "renard", "chauve-souris", "coccinelle", "libellule", "héron", "faucon", "coyote", "kiwi", "pangolin", "lama", "phoque", "baleine", "gorille", "écureuil volant", "marmotte", "toucan", "zèbre", "aigle", "hibou", "pécari", "fourmi", "puma", "kangourou", "ornithorynque", "okapi", "singe", "pangolin", "blaireau", "daim", "tortue de mer", "écureuil volant", "tarsier", "opossum", "pangolin", "lynx", "hippocampe", "colibri", "phalène", "faucon pèlerin", "martinet", "alpaga", "castor", "diable de Tasmanie", "gazelle", "girafe", "houhou", "ibex", "jaguar", "kiwi", "lion"];
+        var verbes = ["manger", "courir", "chanter", "dormir", "nager", "sauter", "voler", "jouer", "grimper", "observer", "danser", "rire", "penser", "cuisiner", "voler", "chasser", "escalader", "découvrir", "traverser", "observer", "écouter", "chercher", "explorer", "naviguer", "plonger", "dessiner", "briller", "dévorer", "fouiller", "escalader", "mordre", "piquer", "nourrir", "caresser", "mordiller", "apprendre", "enseigner", "trottiner", "observer", "épier", "photographier", "courtiser", "enlacer", "embrasser", "jardiner", "rêver", "tisser", "cacher", "surveiller", "raconter", "fabriquer", "émerveiller", "gazouiller", "jouer", "tricoter", "trébucher", "rêver", "soupirer", "observer", "dévorer", "découvrir", "déployer", "illuminer", "bondir", "galoper", "jongler", "manœuvrer", "glisser", "escalader", "naviguer", "apprivoiser", "décoiffer", "plonger", "enchanter", "éclairer", "s'émerveiller", "éblouir", "examiner", "inspecter", "explorer", "déguster", "flairer", "écouter", "observer", "analyser", "contempler", "admirer", "décrypter", "déchiffrer", "imaginer", "envisionner", "élaborer", "concevoir", "inventer", "construire", "fabriquer", "créer", "forger", "improviser", "composer", "organiser", "structurer"];
+        var objets = [
+  { nom: "souris", genre: "f" },
+  { nom: "jouet", genre: "m" },
+  { nom: "fleur", genre: "f" },
+  { nom: "livre", genre: "m" },
+  { nom: "plante", genre: "f" },
+  { nom: "ordinateur", genre: "m" },
+  { nom: "montagne", genre: "f" },
+  { nom: "avion", genre: "m" },
+  { nom: "chaise", genre: "f" },
+  { nom: "téléphone", genre: "m" },
+  { nom: "mer", genre: "f" },
+  { nom: "stylo", genre: "m" },
+  { nom: "étoile", genre: "f" },
+  { nom: "carte", genre: "f" },
+  { nom: "porte", genre: "f" },
+  { nom: "arbre", genre: "m" },
+  { nom: "ciel", genre: "m" },
+  { nom: "table", genre: "f" },
+  { nom: "écran", genre: "m" },
+  { nom: "fête", genre: "f" },
+  { nom: "poisson", genre: "m" },
+  { nom: "lampe", genre: "f" },
+  { nom: "journal", genre: "m" },
+  { nom: "cuisine", genre: "f" },
+  { nom: "vase", genre: "m" },
+  { nom: "planète", genre: "f" },
+  { nom: "voiture", genre: "f" },
+  { nom: "vélo", genre: "m" },
+  { nom: "musique", genre: "f" },
+  { nom: "horloge", genre: "f" },
+  { nom: "bateau", genre: "m" },
+  { nom: "rue", genre: "f" },
+  { nom: "papier", genre: "m" },
+  { nom: "plage", genre: "f" },
+  { nom: "piano", genre: "m" },
+  { nom: "photo", genre: "f" },
+  { nom: "volcan", genre: "m" },
+  { nom: "lumière", genre: "f" },
+  { nom: "rivières", genre: "f" },
+  { nom: "télévision", genre: "f" },
+  { nom: "couteau", genre: "m" },
+  { nom: "forêt", genre: "f" },
+  { nom: "chemin", genre: "m" },
+  { nom: "manteau", genre: "m" },
+  { nom: "escalier", genre: "m" },
+  { nom: "hôtel", genre: "m" },
+  { nom: "puzzle", genre: "m" },
+  { nom: "fumée", genre: "f" },
+  { nom: "miroir", genre: "m" },
+  { nom: "prairie", genre: "f" },
+  { nom: "guitare", genre: "f" },
+  { nom: "nuage", genre: "m" },
+  { nom: "école", genre: "f" },
+  { nom: "voix", genre: "f" },
+  { nom: "fontaine", genre: "f" },
+  { nom: "bureau", genre: "m" },
+  { nom: "jardin", genre: "m" },
+  { nom: "cascade", genre: "f" },
+  { nom: "câble", genre: "m" },
+  { nom: "carton", genre: "m" },
+  { nom: "radio", genre: "f" },
+  { nom: "fenêtre", genre: "f" },
+  { nom: "escalade", genre: "f" },
+  { nom: "cirque", genre: "m" },
+  { nom: "rivière", genre: "f" },
+  { nom: "chapeau", genre: "m" },
+  { nom: "lac", genre: "m" },
+  { nom: "restaurant", genre: "m" },
+  { nom: "vent", genre: "m" },
+  { nom: "fête", genre: "f" },
+  { nom: "piscine", genre: "f" },
+  { nom: "parapluie", genre: "m" },
+  { nom: "météo", genre: "f" },
+  { nom: "église", genre: "f" },
+  { nom: "chemise", genre: "f" },
+  { nom: "miel", genre: "m" },
+  { nom: "étagère", genre: "f" },
+  { nom: "pluie", genre: "f" },
+  { nom: "moulin", genre: "m" },
+  { nom: "fruit", genre: "m" },
+  { nom: "tunnel", genre: "m" },
+  { nom: "escalier", genre: "m" },
+  { nom: "serpent", genre: "m" },
+  { nom: "ocean", genre: "m" },
+  { nom: "chocolat", genre: "m" },
+  { nom: "théâtre", genre: "m" },
+  { nom: "parfum", genre: "m" },
+  { nom: "gare", genre: "f" },
+  { nom: "île", genre: "f" },
+  { nom: "bouteille", genre: "f" },
+  { nom: "canapé", genre: "m" },
+  { nom: "épée", genre: "f" },
+  { nom: "oiseau", genre: "m" },
+  { nom: "clé", genre: "f" },
+  { nom: "crayon", genre: "m" },
+  { nom: "roue", genre: "f" },
+  { nom: "monde", genre: "m" },
+  { nom: "poème", genre: "m" },
+  { nom: "étoile", genre: "f" },
+  { nom: "fête", genre: "f" },
+  { nom: "manteau", genre: "m" },
+  { nom: "poisson", genre: "m" },
+  { nom: "gâteau", genre: "m" },
+  { nom: "jardin", genre: "m" },
+  { nom: "cadeau", genre: "m" },
+  { nom: "masque", genre: "m" },
+  { nom: "planète", genre: "f" },
+  { nom: "rivière", genre: "f" },
+  { nom: "ciseaux", genre: "m" },
+  { nom: "rêve", genre: "m" },
+  { nom: "énergie", genre: "f" },
+  { nom: "fumée", genre: "f" },
+  { nom: "orage", genre: "m" },
+  { nom: "oasis", genre: "f" },
+  { nom: "billet", genre: "m" },
+  { nom: "parc", genre: "m" },
+  { nom: "fantôme", genre: "m" },
+  { nom: "cheval", genre: "m" },
+  { nom: "porte", genre: "f" },
+  { nom: "rocher", genre: "m" },
+  { nom: "fleur", genre: "f" },
+  { nom: "vague", genre: "f" },
+  { nom: "sable", genre: "m" },
+  { nom: "danse", genre: "f" },
+  { nom: "poème", genre: "m" },
+  { nom: "flamme", genre: "f" },
+  { nom: "puzzle", genre: "m" },
+  { nom: "chanson", genre: "f" },
+  { nom: "piano", genre: "m" },
+  { nom: "éclair", genre: "m" },
+  { nom: "image", genre: "f" },
+  { nom: "plume", genre: "f" },
+  { nom: "ciel", genre: "m" },
+  { nom: "fête", genre: "f" },
+  { nom: "cadeau", genre: "m" },
+  { nom: "masque", genre: "m" },
+  { nom: "planète", genre: "f" },
+  { nom: "rivière", genre: "f" },
+  { nom: "ciseaux", genre: "m" },
+  { nom: "rêve", genre: "m" },
+  { nom: "énergie", genre: "f" },
+  { nom: "fumée", genre: "f" },
+  { nom: "orage", genre: "m" },
+  { nom: "oasis", genre: "f" },
+  { nom: "billet", genre: "m" },
+  { nom: "parc", genre: "m" },
+  { nom: "fantôme", genre: "m" },
+  { nom: "cheval", genre: "m" },
+  { nom: "porte", genre: "f" },
+  { nom: "rocher", genre: "m" },
+  { nom: "fleur", genre: "f" },
+  { nom: "vague", genre: "f" },
+  { nom: "sable", genre: "m" },
+  { nom: "danse", genre: "f" },
+  { nom: "poème", genre: "m" },
+  { nom: "flamme", genre: "f" },
+  { nom: "puzzle", genre: "m" },
+  { nom: "chanson", genre: "f" },
+  { nom: "piano", genre: "m" },
+  { nom: "éclair", genre: "m" },
+  { nom: "image", genre: "f" },
+  { nom: "plume", genre: "f" },
+  { nom: "ciel", genre: "m" }
+]
+
+        var prepositions = ["dans", "sur", "sous", "devant", "derrière", "à côté de"];
+        var complementsVerbe = ["rapidement", "joyeusement", "silencieusement", "efficacement", "discrètement"];
+        var complementsNom = ["coloré", "brillant", "fragile", "immense", "petit", "magnifique"];
+
+        function getRandomElement(array) {
+            var randomIndex = Math.floor(Math.random() * array.length);
+            return array[randomIndex];
+        }
+
+        function getDeterminant(objet) {
+            if (objet.nom.charAt(0) === "a" || objet.nom.charAt(0) === "e" || objet.nom.charAt(0) === "i" || objet.nom.charAt(0) === "o" || objet.nom.charAt(0) === "u" || objet.nom.charAt(0) === "h" || objet.nom.charAt(0) === "î" || objet.nom.charAt(0) === "é" || objet.nom.charAt(0) === "è") {
+                return "l'";
+            } else if (objet.genre === "m") {
+                return "le";
+            } else if (objet.genre === "f") {
+                return "la";
+            } else {
+                return getRandomElement(determinants);
+            }
+        }
+
+        function getRandomSubject() {
+            if (Math.random() < 0.5) {
+                return getRandomElement(pronomsSujets);
+            } else {
+                var objet = getRandomElement(objets);
+                return getDeterminant(objet) + " " + objet.nom;
+            }
+        }
+
+
+function accorderVerbe(verbe, sujet) {
+    // Logique d'accord du verbe en fonction du sujet
+    if (verbe.endsWith("er")) {
+        // Verbes en "er"
+        // console.log(verbe.endsWith("er"));
+        if (sujet === "je") {
+            return verbe.slice(0, -2) + "e";
+        } else if (sujet === "tu") {
+            return verbe.slice(0, -2) + "es";
+        } else if (sujet === "il" || sujet === "elle" || sujet === "on") {
+            return verbe.slice(0, -2) + "e";
+        } else if (sujet === "nous") {
+            return verbe.slice(0, -2) + "ons";
+        } else if (sujet === "vous") {
+            return verbe.slice(0, -2) + "ez";
+        } else if (sujet === "ils" || sujet === "elles") {
+            return verbe.slice(0, -2) + "ent";
+        }else if (sujet === sujet){
+            return verbe.slice(0, -2) + "e";
+        }
+    }else if (verbe.endsWith("ir") || verbe.endsWith("oir")) {
+        // Verbes en "ir" et "oir"
+        if (sujet === "je") {
+            return verbe.slice(0, -2) + "is";
+        } else if (sujet === "tu") {
+            return verbe.slice(0, -2) + "is";
+        } else if (sujet === "il" || sujet === "elle" || sujet === "on") {
+            return verbe.slice(0, -2) + "it";
+        } else if (sujet === "nous") {
+            return verbe.slice(0, -2) + "issons";
+        } else if (sujet === "vous") {
+            return verbe.slice(0, -2) + "issez";
+        } else if (sujet === "ils" || sujet === "elles") {
+            return verbe.slice(0, -2) + "issent";
+        }else if (sujet === sujet){
+            return verbe.slice(0, -2) + "it";
+        }
+    } else if (verbe.endsWith("re")) {
+        // Verbes en "re"
+        if (sujet === "je") {
+            return verbe.slice(0, -2) + "s";
+        } else if (sujet === "tu") {
+            return verbe.slice(0, -2) + "s";
+        } else if (sujet === "il" || sujet === "elle" || sujet === "on") {
+            return verbe.slice(0, -2) + "t";
+        } else if (sujet === "nous") {
+            return verbe.slice(0, -2) + "ons";
+        } else if (sujet === "vous") {
+            return verbe.slice(0, -2) + "ez";
+        } else if (sujet === "ils" || sujet === "elles") {
+            return verbe.slice(0, -2) + "ent";
+        }else if (sujet === sujet){
+            return verbe.slice(0, -2) + "e";
+        }
+    }
+
+    // Retourne le verbe inchangé s'il ne correspond à aucun cas spécifique
+    return verbe;
+}
+
+
+
+
+
+        function generePhrase() {
+            var sujet = getRandomSubject();
+            var verbe = getRandomElement(verbes);
+            var objet = getRandomElement(objets);
+            var preposition = getRandomElement(prepositions);
+
+            // Vérification pour remplacer "de le" par "du"
+            var determinantObjet = getDeterminant(objet);
+            if (determinantObjet === "le" && preposition === "à côté de") {
+                determinantObjet = "du";
+                preposition = ""; // Supprimer la préposition "de"
+            }
+
+            // Accord du verbe
+            verbe = accorderVerbe(verbe, sujet);
+
+            var phrase = sujet + " " + verbe + " " + preposition + " " + determinantObjet + " " + objet.nom + ".";
+            document.getElementById('PhraseGenere').innerText = phrase;
+
+            
+
+
+
+
+
+            // EASTER EGG
+            const body = document.querySelector('body');
+            const video = document.createElement('video');
+
+            random = Math.random();
+            // console.log(random);
+            if (random < 0.999) {
+                body.style.background = "linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)";
+                // Supprimer la balise vidéo s'il existe déjà
+                const existingVideo = document.getElementById('video-background');
+                if (existingVideo) {
+                    body.removeChild(existingVideo);
+                }
+            } else {
+                const existingVideo = document.getElementById('video-background');
+                if (existingVideo) {
+                    body.removeChild(existingVideo);
+                }
+                body.style.background = "#000";
+                body.appendChild(video);
+                video.setAttribute('autoplay', 'false');
+                video.setAttribute('loop', 'false');
+                video.setAttribute('id', 'video-background');
+                video.setAttribute('src', 'BreadFall.mp4');
+            }
+
+        }
+    </script>
+</body>
+</html>
